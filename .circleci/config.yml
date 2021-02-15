@@ -9,6 +9,7 @@ jobs:
     steps:
       - checkout:
           path: ~/project
+      - run: npm install
       - run: npm run test
 
 # Orchestrate or schedule a set of jobs
