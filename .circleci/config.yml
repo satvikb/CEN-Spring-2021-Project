@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: cimg/node:15.8.0 # buildpack-deps:trusty
     steps:
+      - checkout
       - run: npm run test
 
 # Orchestrate or schedule a set of jobs
