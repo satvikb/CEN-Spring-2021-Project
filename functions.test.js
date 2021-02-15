@@ -1,7 +1,7 @@
 const functions = require('./functions');
 
 test('adds 1 + 2 to equal 3', () => {
-  expect(functions.sum(1, 2)).toBe(4);
+  expect(functions.sum(1, 2)).toBe(3);
 });
 
 test('subtract 1 - 2 to equal -1', () => {
