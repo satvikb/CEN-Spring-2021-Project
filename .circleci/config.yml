@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   test:
     docker:
-      - image: cimg/base:2020.01 # buildpack-deps:trusty
+      - image: cimg/node:15.8.0 # buildpack-deps:trusty
     steps:
       - run: npm run test
 
