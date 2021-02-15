@@ -3,12 +3,11 @@ version: 2.1
 
 jobs:
   test:
-    working_directory: ~/project/TestingActivity
+    working_directory: ~/project
     docker:
-      - image: circleci/node:8 #cimg/node:15.8.0 # buildpack-deps:trusty
+      - image: circleci/node:12.16.3 #cimg/node:15.8.0 # buildpack-deps:trusty
     steps:
-      - checkout:
-          path: ~/project
+      - checkout
       - run: npm install
       - run: npm run test
 
