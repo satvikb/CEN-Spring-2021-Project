@@ -3,10 +3,11 @@ version: 2.1
 
 jobs:
   test:
+    working_directory: ~/project
     docker:
       - image: cimg/node:15.8.0 # buildpack-deps:trusty
     steps:
-      - checkout "/home/circleci/project/"
+      - checkout
       - run: npm run test
 
 # Orchestrate or schedule a set of jobs
