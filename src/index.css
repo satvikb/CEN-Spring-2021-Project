@@ -12,10 +12,41 @@ code {
     monospace;
 }
 
+.PageTitle {
+  font: 40px Arial, sans-serif;
+
+}
+
+.Home,.Involvement {
+  text-align: left;
+}
+
 .NavigationButton {
 
 }
 
+.TextTitle{
+  font: 21px Arial, sans-serif;
+}
+
+.TextDetail{
+  font: 14px Arial, sans-serif;
+}
+
+.UpdatesContainer{
+
+}
+
+
+.UpdateRowContainer{
+
+}
+.UpdateRowTitle{
+
+}
+.UpdateRowText{
+
+}
 
 .WebsiteHeader{
   display: inline-block;
