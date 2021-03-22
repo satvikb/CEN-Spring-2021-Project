@@ -28,11 +28,6 @@ var buttons = [
     "text":"Events",
     "key":"events",
     "url":"/events"
-  },
-  {
-    "text":"Apply",
-    "key":"apply",
-    "url":"/apply"
   }
 ]
 function NavigationBar(props) {
@@ -56,9 +51,6 @@ function NavigationBar(props) {
           </Route>
           <Route path="/events">
             <Events />
-          </Route>
-          <Route path="/apply">
-            <Apply />
           </Route>
         </Switch>
       </div>
