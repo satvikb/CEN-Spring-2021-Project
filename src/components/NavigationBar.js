@@ -1,12 +1,15 @@
 import NavigationButton from './NavigationButton';
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+//import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 import Home from '../pages/Home'
 import OurTeam from '../pages/OurTeam'
 import Involvement from '../pages/Involvement'
 import Events from '../pages/Events'
 import Apply from '../pages/Apply'
+import { ButtonToolbar } from 'react-bootstrap';
 
 var buttons = [
   {
@@ -28,11 +31,6 @@ var buttons = [
     "text":"Events",
     "key":"events",
     "url":"/events"
-  },
-  {
-    "text":"Apply",
-    "key":"apply",
-    "url":"/apply"
   }
 ]
 function NavigationBar(props) {
@@ -41,7 +39,8 @@ function NavigationBar(props) {
       <div className="NavigationBar">
         <p className="WebsiteHeader">Tamid UF</p>
         {buttons.map((item, index) => {
-          return <NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton>
+          return <ButtonGroup><NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton></ButtonGroup>
+          
         })}
 
         <Switch>
@@ -56,9 +55,6 @@ function NavigationBar(props) {
           </Route>
           <Route path="/events">
             <Events />
-          </Route>
-          <Route path="/apply">
-            <Apply />
           </Route>
         </Switch>
       </div>
