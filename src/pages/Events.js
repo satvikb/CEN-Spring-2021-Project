@@ -8,20 +8,25 @@ import CardDeck from 'react-bootstrap/CardDeck';
 function Events() {
   return (
     <div className="Events">
-        <p>Tamid Group Events</p>
+        <div className="EventsBackgroundImage">
+          <div className="BannerTitle">
+            <h1 className="BannerTitleText">Tamid Group Events</h1>
+          </div>
+        </div>
+
         <div class="col d-flex justify-content-center">
           <CardDeck>
               <EventCard title='Event Title' location='Event Location' date='Event Date' info='Event Info' />
               <EventCard title='Event Title' location='Event Location' date='Event Date' info='Event Info' />
               <EventCard title='Event Title' location='Event Location' date='Event Date' info='Event Info' />
-          </CardDeck>   
+          </CardDeck>
       </div>
-       
+
 
         <ReactCalendar>
 
         </ReactCalendar>
-       
+
     </div>
   );
 }
