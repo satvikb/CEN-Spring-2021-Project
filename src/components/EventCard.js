@@ -5,12 +5,14 @@ import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 
+
+
   function EventCard(props) {
       return(
             <div className="EventCard">
-              <Card style={{ width: '18rem' }}>
+              <Card bg={'Primary'} style={{ width: '18rem' }}>
                 <Card.Body>
-                  <Card.Title style={{'font-size':'25px'}}>Event Card</Card.Title>
+                  <Card.Header style={{'font-size':'20px'}}>Event Card</Card.Header>
                   <Card.Text>
                     <p>{props.title}</p>
                     <p>{props.location}</p>
@@ -28,15 +30,10 @@ import FormControl from 'react-bootstrap/FormControl'
                         <Button variant="outline-secondary">RSVP</Button>
                       </InputGroup.Append>
                     </InputGroup>
-
-                 
-
-                  
                   </div>
-        
-                
                 </Card.Body>
               </Card>
+              
               
 
             </div>
