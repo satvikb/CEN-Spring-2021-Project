@@ -12,12 +12,13 @@ import FormControl from 'react-bootstrap/FormControl'
             <div className="EventCard">
               <Card bg={'Primary'} style={{ width: '18rem' }}>
                 <Card.Body>
-                  <Card.Header style={{'font-size':'20px'}}>Event Card</Card.Header>
+                  <Card.Header style={{'fontSize':'20px'}}>Event Card</Card.Header>
                   <Card.Text>
-                    <p>{props.title}</p>
-                    <p>{props.location}</p>
-                    <p>{props.date}</p>
-                    <p>{props.info}</p>
+                    {/* Removed <p> and replaced with <br /> to fix error in the console.*/}
+                    {props.title}<br />
+                    {props.location}<br />
+                    {props.date}<br />
+                    {props.info}<br />
                   </Card.Text>
                   <div>
                     <InputGroup className="mb-3">
@@ -33,8 +34,8 @@ import FormControl from 'react-bootstrap/FormControl'
                   </div>
                 </Card.Body>
               </Card>
-              
-              
+
+
 
             </div>
       );

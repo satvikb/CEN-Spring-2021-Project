@@ -38,11 +38,12 @@ function NavigationBar(props) {
     <Router>
       <div className="NavigationBar">
         <p className="WebsiteHeader">Tamid UF</p>
+        <ButtonGroup>
         {buttons.map((item, index) => {
-          return <ButtonGroup><NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton></ButtonGroup>
-          
-        })}
+          return <NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton>
 
+        })}
+        </ButtonGroup>
         <Switch>
           <Route exact path="/">
             <Home />

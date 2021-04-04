@@ -2,7 +2,7 @@ import React from "react";
 
 function UpdateRow(props) {
   return (
-    <div className="UpdateRowContainer">
+    <div className="UpdateRowContainer" id={props.title}>
       <div className="UpdateRowContent">
         <div className="UpdateRowHeader">
           <div className="UpdateRowTitle">{props.title}</div>
