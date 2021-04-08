@@ -1,6 +1,7 @@
 import UpdateRow from '../components/UpdateRow'
 import db from '../firebase.config';
 import React,{useState,useEffect} from 'react';
+import {Link } from "react-router-dom";
 
 function Home() {
   const [updates,setUpdates]=useState([])
@@ -17,7 +18,6 @@ function Home() {
    useEffect(() => {
      fetchUpdates();
    }, [])
-
 
   return (
     <div className="Home">
@@ -37,11 +37,17 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
         <div className="UpdatesContainer">
         {
           updates && updates.map(update=>(
-            <UpdateRow key={update.title} title={update.title} text={update.details} time={update.time.seconds}></UpdateRow>
+            <UpdateRow key={update.title} title={update.title} text={update.details} time={update.time}></UpdateRow>
           ))
         }
 
         </div>
+      </div>
+      <div className="HomeFooter">
+        <Link to="/adminlogin"><button>
+          Go to admin
+        </button>
+        </Link>
       </div>
 
     </div>

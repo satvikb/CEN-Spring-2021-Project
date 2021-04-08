@@ -9,6 +9,8 @@ import OurTeam from '../pages/OurTeam'
 import Involvement from '../pages/Involvement'
 import Events from '../pages/Events'
 import Apply from '../pages/Apply'
+import AdminLogin from '../pages/AdminLogin'
+import AdminDashboard from '../pages/AdminDashboard'
 import { ButtonToolbar } from 'react-bootstrap';
 
 var buttons = [
@@ -41,7 +43,6 @@ function NavigationBar(props) {
         <ButtonGroup>
         {buttons.map((item, index) => {
           return <NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton>
-
         })}
         </ButtonGroup>
         <Switch>
@@ -56,6 +57,12 @@ function NavigationBar(props) {
           </Route>
           <Route path="/events">
             <Events />
+          </Route>
+          <Route path="/adminlogin">
+            <AdminLogin />
+          </Route>
+          <Route path="/admindashboard">
+            <AdminDashboard />
           </Route>
         </Switch>
       </div>

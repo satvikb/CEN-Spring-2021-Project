@@ -23,6 +23,7 @@ function Events() {
      fetchEvents();
    }, [])
 
+
   return (
     <div className="Events">
         <div className="EventsBackgroundImage">
@@ -35,7 +36,7 @@ function Events() {
           <CardDeck>
           {
             events && events.map(event=>{
-              return <EventCard key={event.title} title={event.title} location={event.location} date={event.time.seconds} info={event.details} />
+              return <EventCard key={event.title} title={event.title} location={event.location} date={event.time} info={event.details} />
             })
           }
           </CardDeck>
