@@ -1,6 +1,24 @@
 import UpdateRow from '../components/UpdateRow'
+import db from '../firebase.config';
+import React,{useState,useEffect} from 'react';
+import {Link } from "react-router-dom";
 
 function Home() {
+  const [updates,setUpdates]=useState([])
+  const fetchUpdates=async()=>{
+     const response=db.collection('updates');
+     const data=await response.get();
+     var ups = []
+     data.docs.forEach(item=>{
+       ups.push(item.data())
+      // setUpdates([...updates,item.data()])
+     })
+     setUpdates(ups)
+   }
+   useEffect(() => {
+     fetchUpdates();
+   }, [])
+
   return (
     <div className="Home">
       <div className="HomeBackgroundImage">
@@ -17,9 +35,19 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
 
         <p className="TextTitle">Updates</p>
         <div className="UpdatesContainer">
-          <UpdateRow title="Title" text="Update text" time="3/18 5pm"></UpdateRow>
-          <UpdateRow title="Title2" text="Update text2" time="3/15 2pm"></UpdateRow>
+        {
+          updates && updates.map(update=>(
+            <UpdateRow key={update.title} title={update.title} text={update.details} time={update.time}></UpdateRow>
+          ))
+        }
+
         </div>
+      </div>
+      <div className="HomeFooter">
+        <Link to="/adminlogin"><button>
+          Go to admin
+        </button>
+        </Link>
       </div>
 
     </div>
