@@ -20,16 +20,7 @@ function AdminLogin(props) {
       .then((userCredential) => {
         // Signed in
         var user = userCredential.user;
-        // ...
-
         history.push('/admindashboard')
-
-        // const location = this.props.location
-        // if (location.state && location.state.nextPathname) {
-        //   history.push(location.state.nextPathname)
-        // } else {
-        //   history.push('/')
-        // }
       })
       .catch((error) => {
         var errorCode = error.code;

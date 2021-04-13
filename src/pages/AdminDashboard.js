@@ -7,32 +7,7 @@ import { db, auth } from '../firebase.config';
 import Form from 'react-bootstrap/Form'
 import  { Redirect } from 'react-router-dom'
 
-import history from '../components/history';
-
-// var didLogin = false;
-// auth.onAuthStateChanged((user) => {
-//   if (user) {
-//     // User is signed in, see docs for a list of available properties
-//     // https://firebase.google.com/docs/reference/js/firebase.User
-//     var uid = user.uid;
-//     console.log("LOGGED IN "+uid)
-//     didLogin = true;
-//     // ...
-//   } else {
-//     console.log("LOGGED OUT ")
-//     // User is signed out
-//     // ...
-//   }
-// });
-
 function AdminDashboard() {
-  // var user = auth.currentUser;
-  // if(!user){
-  //   alert("Not logged in!");
-  //   // history.push('/adminlogin')
-  //   return <Redirect to='/adminlogin'  />
-  // }
-
   const [updates,setUpdates]=useState([])
   const [events,setEvents]=useState([])
 
