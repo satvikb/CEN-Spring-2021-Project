@@ -49,6 +49,17 @@ code {
 
 }
 
+.EventsBackgroundImage {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/EventsBanner.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
 .OurTeamBackgroundImage {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/OurTeamBanner.jpg");
   height: 100%;
