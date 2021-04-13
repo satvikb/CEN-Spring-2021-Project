@@ -16,7 +16,7 @@ import { ButtonToolbar } from 'react-bootstrap';
 import PrivateRoute from './PrivateRoute'
 
 import history from './history';
-import { db, auth } from '../firebase.config';
+import { auth } from '../firebase.config';
 
 var buttons = [
   {

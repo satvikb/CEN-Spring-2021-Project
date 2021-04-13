@@ -3,7 +3,7 @@ import ReactCalendar from "../components/ReactCalendar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CardDeck from 'react-bootstrap/CardDeck';
 
-import { db, auth } from '../firebase.config';
+import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import React,{useState,useEffect} from 'react';
 
 
@@ -36,7 +36,7 @@ function Events() {
           <CardDeck>
           {
             events && events.map(event=>{
-              return <EventCard key={event.title} title={event.title} location={event.location} date={event.time} info={event.details} />
+              return <EventCard key={event.title} title={event.title} location={event.location} date={timestampToString(event.time)} info={event.details} />
             })
           }
           </CardDeck>

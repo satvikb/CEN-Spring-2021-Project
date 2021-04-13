@@ -3,7 +3,7 @@ import React,{useState,useEffect} from 'react';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import { db, auth } from '../firebase.config';
+import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import Form from 'react-bootstrap/Form'
 import  { Redirect } from 'react-router-dom'
 
@@ -39,7 +39,6 @@ function AdminDashboard() {
  const [eventTitle, setEventTitle] = useState('');
  const [eventLocation, setEventLocation] = useState('');
  const [eventDate, setEventDate] = useState('');
- const [eventTime, setEventTime] = useState('');
  const [eventInfo, setEventInfo] = useState('');
 
  // The state every time an event happens
@@ -52,9 +51,6 @@ function AdminDashboard() {
  const handleEventDateChange = event => {
    setEventDate(event.target.value);
  };
- const handleEventTimeChange = event => {
-   setEventTime(event.target.value);
- };
  const handleEventInfoChange = event => {
    setEventInfo(event.target.value);
  };
@@ -66,10 +62,13 @@ function AdminDashboard() {
  };
 
   const addEventToDatabase = () => {
+    let eventDateObj = new Date(eventDate)
+    var firestoreTimestamp = fbTimestamp.fromDate(eventDateObj);
+
     db.collection('events').add({
       title:eventTitle,
       location:eventLocation,
-      time:eventDate+" at "+eventTime,
+      time:firestoreTimestamp,
       details:eventInfo
     });
   };
@@ -77,7 +76,6 @@ function AdminDashboard() {
   var udpateCounter = 1;
   const [updateTitle, setupdateTitle] = useState('');
   const [updateDate, setupdateDate] = useState('');
-  const [updateTime, setupdateTime] = useState('');
   const [updateInfo, setupdateInfo] = useState('');
 
   const handleupdateTitleChange = update => {
@@ -85,9 +83,6 @@ function AdminDashboard() {
   };
   const handleupdateDateChange = update => {
     setupdateDate(update.target.value);
-  };
-  const handleupdateTimeChange = update => {
-    setupdateTime(update.target.value);
   };
   const handleupdateInfoChange = update => {
     setupdateInfo(update.target.value);
@@ -100,9 +95,12 @@ function AdminDashboard() {
   };
 
    const addUpdateToDatabase = () => {
+     let updateDateObj = new Date(updateDate)
+     var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
+
      db.collection('updates').add({
        title:updateTitle,
-       time:updateDate+" at "+updateTime,
+       time:firestoreTimestamp,
        details:updateInfo
      });
    };
@@ -132,18 +130,12 @@ function AdminDashboard() {
               <Form.Label>Location</Form.Label>
               <Form.Control placeholder="Event Location" onChange={handleEventLocationChange}/>
             </Form.Group>
-          </Form.Row>
 
-          <Form.Row>
             <Form.Group controlId="formGridDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" onChange={handleEventDateChange}/>
+              <Form.Control type="datetime-local" onChange={handleEventDateChange}/>
             </Form.Group>
 
-            <Form.Group controlId="formGridTime">
-              <Form.Label>Time</Form.Label>
-              <Form.Control type="time" onChange={handleEventTimeChange}/>
-            </Form.Group>
           </Form.Row>
 
           <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -177,7 +169,7 @@ function AdminDashboard() {
                     <th scope="row">{eventCounter++}</th>
                     <td>{event.title}</td>
                     <td>{event.location}</td>
-                    <td>{event.time}</td>
+                    <td>{timestampToString(event.time)}</td>
                     <td>{event.details}</td>
                   </tr>
                 )
@@ -204,18 +196,12 @@ function AdminDashboard() {
               <Form.Label>Title</Form.Label>
               <Form.Control placeholder="Update Title" onChange={handleupdateTitleChange}/>
             </Form.Group>
-          </Form.Row>
 
-          <Form.Row>
             <Form.Group controlId="formGridDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" onChange={handleupdateDateChange}/>
+              <Form.Control type="datetime-local" onChange={handleupdateDateChange}/>
             </Form.Group>
 
-            <Form.Group controlId="formGridTime">
-              <Form.Label>Time</Form.Label>
-              <Form.Control type="time" onChange={handleupdateTimeChange}/>
-            </Form.Group>
           </Form.Row>
 
           <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -246,7 +232,7 @@ function AdminDashboard() {
                 <tr key={update.title}>
                   <th scope="row">{udpateCounter++}</th>
                   <td>{update.title}</td>
-                  <td>{update.time}</td>
+                  <td>{timestampToString(update.time)}</td>
                   <td>{update.details}</td>
                 </tr>
               )

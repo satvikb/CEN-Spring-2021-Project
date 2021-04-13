@@ -1,5 +1,5 @@
 import UpdateRow from '../components/UpdateRow'
-import { db, auth } from '../firebase.config';
+import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import React,{useState,useEffect} from 'react';
 import {Link } from "react-router-dom";
 
@@ -37,7 +37,7 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
         <div className="UpdatesContainer">
         {
           updates && updates.map(update=>(
-            <UpdateRow key={update.title} title={update.title} text={update.details} time={update.time}></UpdateRow>
+            <UpdateRow key={update.title} title={update.title} text={update.details} time={timestampToString(update.time)}></UpdateRow>
           ))
         }
 
