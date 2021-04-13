@@ -3,7 +3,7 @@ import ReactCalendar from "../components/ReactCalendar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import CardDeck from 'react-bootstrap/CardDeck';
 
-import db from '../firebase.config';
+import { db, auth } from '../firebase.config';
 import React,{useState,useEffect} from 'react';
 
 

@@ -1,5 +1,5 @@
 import UpdateRow from '../components/UpdateRow'
-import db from '../firebase.config';
+import { db, auth } from '../firebase.config';
 import React,{useState,useEffect} from 'react';
 import {Link } from "react-router-dom";
 
@@ -44,9 +44,10 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
         </div>
       </div>
       <div className="HomeFooter">
-        <Link to="/adminlogin"><button>
-          Go to admin
-        </button>
+        <Link to="/adminlogin">
+          <button>
+            Go to admin
+          </button>
         </Link>
       </div>
 
