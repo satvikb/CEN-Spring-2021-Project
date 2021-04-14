@@ -43,7 +43,9 @@ var buttons = [
 
 function requireAuth(nextState, replace) {
   var user = auth.currentUser;
-  if(!user){
+  const isLoggedIn = user != undefined;
+  // console.log("LG "+isLoggedIn)
+  if(!isLoggedIn){
     replace({
       pathname: '/adminlogin',
       state: { nextPathname: nextState.location.pathname }

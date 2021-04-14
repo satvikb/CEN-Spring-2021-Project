@@ -8,6 +8,7 @@ import Form from 'react-bootstrap/Form'
 import  { Redirect } from 'react-router-dom'
 
 function AdminDashboard() {
+  var that = this;
   const [updates,setUpdates]=useState([])
   const [events,setEvents]=useState([])
 
@@ -16,7 +17,10 @@ function AdminDashboard() {
     const data=await response.get();
     var ups = []
     data.docs.forEach(item=>{
-     ups.push(item.data())
+      ups.push({
+        id: item.id,
+        data: item.data()
+      })
     // setUpdates([...updates,item.data()])
     })
     setUpdates(ups)
@@ -26,7 +30,10 @@ function AdminDashboard() {
     const eventsData = await eventsResponse.get();
     var evs = []
     eventsData.docs.forEach(item=>{
-     evs.push(item.data())
+     evs.push({
+       id: item.id,
+       data: item.data()
+     })
     // setEvents([...events,item.data()])
     })
     setEvents(evs)
@@ -69,8 +76,17 @@ function AdminDashboard() {
       title:eventTitle,
       location:eventLocation,
       time:firestoreTimestamp,
-      details:eventInfo
+      details:eventInfo,
+      // rsvps:[]
+    }).then(function(ref){
+      // window.location.reload();
     });
+    // .then(function(docRef){
+    //   var docId = docRed.id;
+    //   db.collection("rsvps").doc(docId).set({
+    //     rsvps:[]
+    //   })
+    // })
   };
 
   var udpateCounter = 1;
@@ -94,16 +110,29 @@ function AdminDashboard() {
       addUpdateToDatabase();
   };
 
-   const addUpdateToDatabase = () => {
-     let updateDateObj = new Date(updateDate)
-     var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
+  const addUpdateToDatabase = () => {
+    let updateDateObj = new Date(updateDate)
+    var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
 
-     db.collection('updates').add({
-       title:updateTitle,
-       time:firestoreTimestamp,
-       details:updateInfo
-     });
-   };
+    db.collection('updates').add({
+      title:updateTitle,
+      time:firestoreTimestamp,
+      details:updateInfo
+    }).then(function(ref){
+      // window.location.reload();
+    });
+  };
+
+  const deleteDocument = (collectionName, docId) => {
+    console.log("Deleting "+collectionName + " "+docId)
+    db.collection(collectionName).doc(docId).delete().then(() => {
+      alert("Successfully deleted!");
+      // window.location.reload();
+      // that.forceUpdate();
+    }).catch((error) => {
+      console.error("Error removing: ", error);
+    });
+  }
 
   return (
     <div className="AdminDashboard">
@@ -158,6 +187,7 @@ function AdminDashboard() {
               <th scope="col">Event Location</th>
               <th scope="col">Event Time</th>
               <th scope="col">Event Details</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -165,12 +195,16 @@ function AdminDashboard() {
             {
               events && events.map(event=>{
                 return (
-                  <tr key={event.title}>
+                  <tr key={event.data.title}>
                     <th scope="row">{eventCounter++}</th>
-                    <td>{event.title}</td>
-                    <td>{event.location}</td>
-                    <td>{timestampToString(event.time)}</td>
-                    <td>{event.details}</td>
+                    <td>{event.data.title}</td>
+                    <td>{event.data.location}</td>
+                    <td>{timestampToString(event.data.time)}</td>
+                    <td>{event.data.details}</td>
+                    <td><Button onClick={() => {deleteDocument("events", event.id)}} variant="danger">
+                      Delete
+                    </Button>
+                    </td>
                   </tr>
                 )
               })
@@ -223,17 +257,22 @@ function AdminDashboard() {
               <th scope="col">Update Title</th>
               <th scope="col">Update Time</th>
               <th scope="col">Update Details</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
           {
             updates && updates.map(update=>{
               return (
-                <tr key={update.title}>
+                <tr key={update.data.title}>
                   <th scope="row">{udpateCounter++}</th>
-                  <td>{update.title}</td>
-                  <td>{timestampToString(update.time)}</td>
-                  <td>{update.details}</td>
+                  <td>{update.data.title}</td>
+                  <td>{timestampToString(update.data.time)}</td>
+                  <td>{update.data.details}</td>
+                  <td><Button onClick={() => {deleteDocument("updates", update.id)}} variant="danger">
+                    Delete
+                  </Button>
+                  </td>
                 </tr>
               )
             })
