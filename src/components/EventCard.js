@@ -32,10 +32,10 @@ import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebas
       <div className="EventCard">
         <Card bg={'Primary'} style={{ width: '18rem' }}>
           <Card.Body>
-            <Card.Header style={{'fontSize':'20px'}}>Event Card</Card.Header>
+            <Card.Header style={{'fontSize':'20px'}}>{props.title}</Card.Header>
             <Card.Text>
               {/* Removed <p> and replaced with <br /> to fix error in the console.*/}
-              {props.title}<br />
+              <br />
               {props.location}<br />
               {props.date}<br />
               {props.info}<br />
