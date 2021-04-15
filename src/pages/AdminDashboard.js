@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button'
 import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import Form from 'react-bootstrap/Form'
 import  { Redirect } from 'react-router-dom'
+import Modal from '../components/Modal'
 
 function AdminDashboard() {
   var that = this;
@@ -72,21 +73,25 @@ function AdminDashboard() {
     let eventDateObj = new Date(eventDate)
     var firestoreTimestamp = fbTimestamp.fromDate(eventDateObj);
 
-    db.collection('events').add({
+    var eventData = {
       title:eventTitle,
       location:eventLocation,
       time:firestoreTimestamp,
       details:eventInfo,
-      // rsvps:[]
-    }).then(function(ref){
+    }
+    db.collection('events').add(eventData).then(function(ref){
+      console.log("ADDED "+ref.id)
+      var eventsCopy = events;
+      eventsCopy.push({
+        id: ref.id,
+        data:eventData
+      })
+      fetchUpdates(eventsCopy)
+      // setEvents(eventsCopy)
+      // alert("Successfully added!");
+
       // window.location.reload();
     });
-    // .then(function(docRef){
-    //   var docId = docRed.id;
-    //   db.collection("rsvps").doc(docId).set({
-    //     rsvps:[]
-    //   })
-    // })
   };
 
   var udpateCounter = 1;
@@ -114,25 +119,47 @@ function AdminDashboard() {
     let updateDateObj = new Date(updateDate)
     var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
 
-    db.collection('updates').add({
+    var updateData = {
       title:updateTitle,
       time:firestoreTimestamp,
       details:updateInfo
-    }).then(function(ref){
-      // window.location.reload();
+    }
+    db.collection('updates').add(updateData).then(function(ref){
+      var updatesCopy = updates;
+      updatesCopy.push({
+        id: ref.id,
+        data:updateData
+      })
+      fetchUpdates(updatesCopy)
     });
   };
 
   const deleteDocument = (collectionName, docId) => {
     console.log("Deleting "+collectionName + " "+docId)
     db.collection(collectionName).doc(docId).delete().then(() => {
-      alert("Successfully deleted!");
+      if(collectionName == "events"){
+        var eventsCopy = events;
+        eventsCopy = events.filter(function( obj ) {
+          return obj.id !== docId;
+        });
+        setEvents(eventsCopy)
+      }else{
+        var updatesCopy = updates;
+        updatesCopy = updates.filter(function( obj ) {
+          return obj.id !== docId;
+        });
+        setUpdates(updatesCopy)
+
+      }
+
+      // alert("Successfully deleted!");
       // window.location.reload();
       // that.forceUpdate();
     }).catch((error) => {
       console.error("Error removing: ", error);
     });
   }
+
 
   return (
     <div className="AdminDashboard">
@@ -195,13 +222,17 @@ function AdminDashboard() {
             {
               events && events.map(event=>{
                 return (
-                  <tr key={event.data.title}>
+                  <tr key={event.id}>
                     <th scope="row">{eventCounter++}</th>
                     <td>{event.data.title}</td>
                     <td>{event.data.location}</td>
                     <td>{timestampToString(event.data.time)}</td>
                     <td>{event.data.details}</td>
-                    <td><Button onClick={() => {deleteDocument("events", event.id)}} variant="danger">
+                    <td>
+                    <Modal eventName={event.data.title} docId={event.id}>
+                      View RSVPs
+                    </Modal>
+                    <Button onClick={() => {deleteDocument("events", event.id)}} variant="danger">
                       Delete
                     </Button>
                     </td>
@@ -264,7 +295,7 @@ function AdminDashboard() {
           {
             updates && updates.map(update=>{
               return (
-                <tr key={update.data.title}>
+                <tr key={update.id}>
                   <th scope="row">{udpateCounter++}</th>
                   <td>{update.data.title}</td>
                   <td>{timestampToString(update.data.time)}</td>
@@ -272,6 +303,7 @@ function AdminDashboard() {
                   <td><Button onClick={() => {deleteDocument("updates", update.id)}} variant="danger">
                     Delete
                   </Button>
+
                   </td>
                 </tr>
               )
