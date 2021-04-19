@@ -18,6 +18,8 @@ import PrivateRoute from './PrivateRoute'
 import history from './history';
 import { auth } from '../firebase.config';
 
+
+
 var buttons = [
   {
     "text":"Home",
@@ -56,9 +58,10 @@ function requireAuth(nextState, replace) {
 function NavigationBar(props) {
   return (
     <Router history={history}>
-      <div className="NavigationBar">
-        <p className="WebsiteHeader">Tamid UF</p>
-        <ButtonGroup>
+      <div className="NavigationBar"  >
+        <p className="WebsiteHeader"></p>
+        <img  width="127.66" height="100" src="https://images.squarespace-cdn.com/content/55368b50e4b04b38c815870d/1429643472174-WY3RYJH8JLC47P1O8YR0/Tamid_Stacked_RGB.png?content-type=image%2Fpng"></img>
+        <ButtonGroup >
         {buttons.map((item, index) => {
           return <NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton>
         })}
