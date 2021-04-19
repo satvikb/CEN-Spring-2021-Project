@@ -23,7 +23,7 @@ function Home() {
     <div className="Home">
       <div className="HomeBackgroundImage">
         <div className="BannerTitle">
-          <h1 className="BannerTitleText">Tamid @ UF</h1>
+          <h1 className="BannerTitleText" style={{font:"20px"}}>Tamid @ UF</h1>
         </div>
       </div>
 

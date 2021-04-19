@@ -84,7 +84,11 @@ function NavigationBar(props) {
           <Route path="/adminlogin" component={AdminLogin} />
         </Switch>
       </div>
+      
+    
     </Router>
+            
+
   );
 }
 
