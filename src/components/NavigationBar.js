@@ -1,6 +1,7 @@
 import NavigationButton from './NavigationButton';
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
+// import { Router, Route, Link } from 'react-router-dom';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 //import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
@@ -12,6 +13,10 @@ import Apply from '../pages/Apply'
 import AdminLogin from '../pages/AdminLogin'
 import AdminDashboard from '../pages/AdminDashboard'
 import { ButtonToolbar } from 'react-bootstrap';
+import PrivateRoute from './PrivateRoute'
+
+import history from './history';
+import { auth } from '../firebase.config';
 
 var buttons = [
   {
@@ -35,9 +40,22 @@ var buttons = [
     "url":"/events"
   }
 ]
+
+function requireAuth(nextState, replace) {
+  var user = auth.currentUser;
+  const isLoggedIn = user != undefined;
+  // console.log("LG "+isLoggedIn)
+  if(!isLoggedIn){
+    replace({
+      pathname: '/adminlogin',
+      state: { nextPathname: nextState.location.pathname }
+    })
+  }
+}
+
 function NavigationBar(props) {
   return (
-    <Router>
+    <Router history={history}>
       <div className="NavigationBar">
         <p className="WebsiteHeader">Tamid UF</p>
         <ButtonGroup>
@@ -58,12 +76,9 @@ function NavigationBar(props) {
           <Route path="/events">
             <Events />
           </Route>
-          <Route path="/adminlogin">
-            <AdminLogin />
-          </Route>
-          <Route path="/admindashboard">
-            <AdminDashboard />
-          </Route>
+
+          <PrivateRoute path="/admindashboard" onEnter={requireAuth} component={AdminDashboard} />
+          <Route path="/adminlogin" component={AdminLogin} />
         </Switch>
       </div>
     </Router>

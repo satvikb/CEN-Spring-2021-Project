@@ -3,10 +3,13 @@ import React,{useState,useEffect} from 'react';
 import Accordion from 'react-bootstrap/Accordion'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
-import db from '../firebase.config';
+import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import Form from 'react-bootstrap/Form'
+import  { Redirect } from 'react-router-dom'
+import Modal from '../components/Modal'
 
 function AdminDashboard() {
+  var that = this;
   const [updates,setUpdates]=useState([])
   const [events,setEvents]=useState([])
 
@@ -15,7 +18,10 @@ function AdminDashboard() {
     const data=await response.get();
     var ups = []
     data.docs.forEach(item=>{
-     ups.push(item.data())
+      ups.push({
+        id: item.id,
+        data: item.data()
+      })
     // setUpdates([...updates,item.data()])
     })
     setUpdates(ups)
@@ -25,7 +31,10 @@ function AdminDashboard() {
     const eventsData = await eventsResponse.get();
     var evs = []
     eventsData.docs.forEach(item=>{
-     evs.push(item.data())
+     evs.push({
+       id: item.id,
+       data: item.data()
+     })
     // setEvents([...events,item.data()])
     })
     setEvents(evs)
@@ -38,7 +47,6 @@ function AdminDashboard() {
  const [eventTitle, setEventTitle] = useState('');
  const [eventLocation, setEventLocation] = useState('');
  const [eventDate, setEventDate] = useState('');
- const [eventTime, setEventTime] = useState('');
  const [eventInfo, setEventInfo] = useState('');
 
  // The state every time an event happens
@@ -51,9 +59,6 @@ function AdminDashboard() {
  const handleEventDateChange = event => {
    setEventDate(event.target.value);
  };
- const handleEventTimeChange = event => {
-   setEventTime(event.target.value);
- };
  const handleEventInfoChange = event => {
    setEventInfo(event.target.value);
  };
@@ -65,18 +70,33 @@ function AdminDashboard() {
  };
 
   const addEventToDatabase = () => {
-    db.collection('events').add({
+    let eventDateObj = new Date(eventDate)
+    var firestoreTimestamp = fbTimestamp.fromDate(eventDateObj);
+
+    var eventData = {
       title:eventTitle,
       location:eventLocation,
-      time:eventDate+" at "+eventTime,
-      details:eventInfo
+      time:firestoreTimestamp,
+      details:eventInfo,
+    }
+    db.collection('events').add(eventData).then(function(ref){
+      console.log("ADDED "+ref.id)
+      var eventsCopy = events;
+      eventsCopy.push({
+        id: ref.id,
+        data:eventData
+      })
+      fetchUpdates(eventsCopy)
+      // setEvents(eventsCopy)
+      // alert("Successfully added!");
+
+      // window.location.reload();
     });
   };
 
   var udpateCounter = 1;
   const [updateTitle, setupdateTitle] = useState('');
   const [updateDate, setupdateDate] = useState('');
-  const [updateTime, setupdateTime] = useState('');
   const [updateInfo, setupdateInfo] = useState('');
 
   const handleupdateTitleChange = update => {
@@ -84,9 +104,6 @@ function AdminDashboard() {
   };
   const handleupdateDateChange = update => {
     setupdateDate(update.target.value);
-  };
-  const handleupdateTimeChange = update => {
-    setupdateTime(update.target.value);
   };
   const handleupdateInfoChange = update => {
     setupdateInfo(update.target.value);
@@ -98,13 +115,51 @@ function AdminDashboard() {
       addUpdateToDatabase();
   };
 
-   const addUpdateToDatabase = () => {
-     db.collection('updates').add({
-       title:updateTitle,
-       time:updateDate+" at "+updateTime,
-       details:updateInfo
-     });
-   };
+  const addUpdateToDatabase = () => {
+    let updateDateObj = new Date(updateDate)
+    var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
+
+    var updateData = {
+      title:updateTitle,
+      time:firestoreTimestamp,
+      details:updateInfo
+    }
+    db.collection('updates').add(updateData).then(function(ref){
+      var updatesCopy = updates;
+      updatesCopy.push({
+        id: ref.id,
+        data:updateData
+      })
+      fetchUpdates(updatesCopy)
+    });
+  };
+
+  const deleteDocument = (collectionName, docId) => {
+    console.log("Deleting "+collectionName + " "+docId)
+    db.collection(collectionName).doc(docId).delete().then(() => {
+      if(collectionName == "events"){
+        var eventsCopy = events;
+        eventsCopy = events.filter(function( obj ) {
+          return obj.id !== docId;
+        });
+        setEvents(eventsCopy)
+      }else{
+        var updatesCopy = updates;
+        updatesCopy = updates.filter(function( obj ) {
+          return obj.id !== docId;
+        });
+        setUpdates(updatesCopy)
+
+      }
+
+      // alert("Successfully deleted!");
+      // window.location.reload();
+      // that.forceUpdate();
+    }).catch((error) => {
+      console.error("Error removing: ", error);
+    });
+  }
+
 
   return (
     <div className="AdminDashboard">
@@ -131,18 +186,12 @@ function AdminDashboard() {
               <Form.Label>Location</Form.Label>
               <Form.Control placeholder="Event Location" onChange={handleEventLocationChange}/>
             </Form.Group>
-          </Form.Row>
 
-          <Form.Row>
             <Form.Group controlId="formGridDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" onChange={handleEventDateChange}/>
+              <Form.Control type="datetime-local" onChange={handleEventDateChange}/>
             </Form.Group>
 
-            <Form.Group controlId="formGridTime">
-              <Form.Label>Time</Form.Label>
-              <Form.Control type="time" onChange={handleEventTimeChange}/>
-            </Form.Group>
           </Form.Row>
 
           <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -165,6 +214,7 @@ function AdminDashboard() {
               <th scope="col">Event Location</th>
               <th scope="col">Event Time</th>
               <th scope="col">Event Details</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -172,12 +222,20 @@ function AdminDashboard() {
             {
               events && events.map(event=>{
                 return (
-                  <tr key={event.title}>
+                  <tr key={event.id}>
                     <th scope="row">{eventCounter++}</th>
-                    <td>{event.title}</td>
-                    <td>{event.location}</td>
-                    <td>{event.time}</td>
-                    <td>{event.details}</td>
+                    <td>{event.data.title}</td>
+                    <td>{event.data.location}</td>
+                    <td>{timestampToString(event.data.time)}</td>
+                    <td>{event.data.details}</td>
+                    <td>
+                    <Modal eventName={event.data.title} docId={event.id}>
+                      View RSVPs
+                    </Modal>
+                    <Button onClick={() => {deleteDocument("events", event.id)}} variant="danger">
+                      Delete
+                    </Button>
+                    </td>
                   </tr>
                 )
               })
@@ -203,18 +261,12 @@ function AdminDashboard() {
               <Form.Label>Title</Form.Label>
               <Form.Control placeholder="Update Title" onChange={handleupdateTitleChange}/>
             </Form.Group>
-          </Form.Row>
 
-          <Form.Row>
             <Form.Group controlId="formGridDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="date" onChange={handleupdateDateChange}/>
+              <Form.Control type="datetime-local" onChange={handleupdateDateChange}/>
             </Form.Group>
 
-            <Form.Group controlId="formGridTime">
-              <Form.Label>Time</Form.Label>
-              <Form.Control type="time" onChange={handleupdateTimeChange}/>
-            </Form.Group>
           </Form.Row>
 
           <Form.Group controlId="exampleForm.ControlTextarea1">
@@ -236,17 +288,23 @@ function AdminDashboard() {
               <th scope="col">Update Title</th>
               <th scope="col">Update Time</th>
               <th scope="col">Update Details</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
           {
             updates && updates.map(update=>{
               return (
-                <tr key={update.title}>
+                <tr key={update.id}>
                   <th scope="row">{udpateCounter++}</th>
-                  <td>{update.title}</td>
-                  <td>{update.time}</td>
-                  <td>{update.details}</td>
+                  <td>{update.data.title}</td>
+                  <td>{timestampToString(update.data.time)}</td>
+                  <td>{update.data.details}</td>
+                  <td><Button onClick={() => {deleteDocument("updates", update.id)}} variant="danger">
+                    Delete
+                  </Button>
+
+                  </td>
                 </tr>
               )
             })
