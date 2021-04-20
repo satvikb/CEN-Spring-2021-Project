@@ -17,6 +17,16 @@ code {
 
 }
 
+.AdminDashboard{
+  padding: 10%;
+}
+
+.AdminLogin{
+  padding: 50px;
+  margin-bottom: 10%;
+
+}
+
 .HomeContent,.InvolvementContent {
   text-align: left;
   margin-left: 15%;

@@ -32,14 +32,16 @@ function AdminLogin(props) {
 
   return (
     <div className="AdminLogin">
+      <h2 style={{marginBottom:50}}>Admin Login</h2>
       <Form onSubmit={handleSubmit}>
-        <Form.Group size="lg" controlId="email">
+        <Form.Group  controlId="email">
           <Form.Label>Email</Form.Label>
-          <Form.Control
+          <Form.Control 
             autoFocus
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            
           />
         </Form.Group>
         <Form.Group size="lg" controlId="password">
