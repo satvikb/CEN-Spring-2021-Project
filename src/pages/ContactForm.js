@@ -56,13 +56,20 @@ const ContactForm = () => {
 
   return (
     <div className='ContactForm'>
+
+        <div className="ContactUsImage">
+          <div className="BannerTitle">
+            <h1 className="BannerTitleText">Contact Us</h1>
+          </div>
+        </div>
       <div className='container'>
         <div className='row'>
           <div className='col-12 text-center'>
-            <div className='contactForm'>
+            <div className='contactForm' style={{marginBottom:40}}>
+              
               <form id='contact-form' onSubmit={handleSubmit(onSubmit)} >
                 {/* Row 1 of form */}
-                <div className='row formRow'>
+                <div className='row formRow' style={{marginBottom:15}}>
                   <div className='col-6'>
                     <input
                       type='text'
@@ -91,7 +98,7 @@ const ContactForm = () => {
                   </div>
                 </div>
                 {/* Row 2 of form */}
-                <div className='row formRow'>
+                <div className='row formRow' style={{marginBottom:20}}>
                   <div className='col'>
                     <input
                       type='text'
@@ -109,7 +116,7 @@ const ContactForm = () => {
                   </div>
                 </div>
                 {/* Row 3 of form */}
-                <div className='row formRow'>
+                <div className='row formRow' style={{marginBottom:50}}>
                   <div className='col'>
                     <textarea
                       rows={3}
@@ -121,7 +128,7 @@ const ContactForm = () => {
                     ></textarea>
                   </div>
                 </div>
-                <Button className='submit-btn' type='submit' variant='primary'>
+                <Button className='submit-btn' type='submit' variant='primary' style={{marginBottom:80}}>
                   Submit
                 </Button>
               </form>
