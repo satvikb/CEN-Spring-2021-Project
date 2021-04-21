@@ -2,6 +2,8 @@ import UpdateRow from '../components/UpdateRow'
 import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import React,{useState,useEffect} from 'react';
 import {Link } from "react-router-dom";
+import CarouselComponent from "../components/CarouselComponent";
+
 
 function Home() {
   const [updates,setUpdates]=useState([])
@@ -50,6 +52,8 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
           </button>
         </Link>
       </div>
+
+      <CarouselComponent></CarouselComponent>
 
     </div>
   );
