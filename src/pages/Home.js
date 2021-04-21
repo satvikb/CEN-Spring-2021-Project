@@ -42,14 +42,11 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
         }
 
         </div>
+
+        <p className="TextTitle">Why Join Tamid?</p>
+        <p className="TextDetail">
+TAMID Group is an apolitical, areligious organization that develops the professional skills of undergraduate students through hands-on interaction with the Israeli economy and startups. New members will go through a semester of educational seminars, followed by the opportunity to consult for Israeli start-up companies and/or manage an investment fund, and finally an opportunity to apply for a chance to intern in Israel through the TAMID Fellowship program</p>
       </div>
-      {/* <div className="HomeFooter">
-        <Link to="/adminlogin">
-          <button>
-            Go to admin
-          </button>
-        </Link>
-      </div> */}
 
     </div>
   );
