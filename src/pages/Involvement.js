@@ -43,7 +43,7 @@ Beyond the competition, TAMID offers partnership opportunities with the financia
 Ultimately, TAMID offers students the edge they need to break into the hyper-competitive financial services industry.</p>
 
         <p className="TextTitle">FELLOWSHIP</p>
-        <p className="TextDetail">Produced in partnership with Onward Israel, the TAMID Group Fellowship is a competitive, 8-week summer internship program that provides outstanding TAMID Group leaders with the opportunity to work with host companies in Israel while living in Tel Aviv.
+        <p className="TextDetailFinal">Produced in partnership with Onward Israel, the TAMID Group Fellowship is a competitive, 8-week summer internship program that provides outstanding TAMID Group leaders with the opportunity to work with host companies in Israel while living in Tel Aviv.
 
 Only active members of a TAMID chapter are eligible to apply for the Fellowship.</p>
       </div>
