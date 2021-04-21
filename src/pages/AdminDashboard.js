@@ -162,12 +162,12 @@ function AdminDashboard() {
 
 
   return (
-    
+
     <div className="AdminDashboard">
       <h3 style={{marginBottom:50}}> Admin Dashboard</h3>
-   
 
-    <Accordion defaultActiveKey="0">
+
+    <Accordion>
   <Card>
     <Card.Header>
       <Accordion.Toggle as={Button} variant="link" eventKey="0">

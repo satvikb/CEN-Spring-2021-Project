@@ -1,16 +1,57 @@
 //https://medium.com/weekly-webtips/simple-react-contact-form-without-back-end-9fa06eff52d9
 import React from 'react';
+import Button from 'react-bootstrap/Button'
 
+import emailjs from 'emailjs-com';
 import { useForm } from 'react-hook-form';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+
+var emailjsconfig = {
+    SERVICE_ID:"service_gzmteol",
+    TEMPLATE_ID:"template_4bxa6ui",
+    USER_ID:"user_7Uk8lo7mQEOjGT0akUZGe"
+}
+
+
 const ContactForm = () => {
-  const { register, errors, handleSubmit } = useForm();
+  const { register, errors, handleSubmit, reset } = useForm();
+
+
+  const toastifySuccess = () => {
+    console.log("TOAST");
+    toast.success('E-mail sent!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: false,
+      className: 'submit-feedback success',
+      toastId: 'notifyToast'
+    });
+  };
 
   const onSubmit = async (data) => {
-    // console.log('Name: ', data.name);
-    // console.log('Email: ', data.email);
-    // console.log('Subject: ', data.subject);
-    // console.log('Message: ', data.message);
+    try {
+      const templateParams = {
+        name: data.name,
+        email: data.email,
+        subject: data.subject,
+        message: data.message
+      };
+      await emailjs.send(
+        emailjsconfig.SERVICE_ID,
+        emailjsconfig.TEMPLATE_ID,
+        templateParams,
+        emailjsconfig.USER_ID
+      );
+      reset();
+      toastifySuccess();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
@@ -80,10 +121,11 @@ const ContactForm = () => {
                     ></textarea>
                   </div>
                 </div>
-                <button className='submit-btn' type='submit'>
+                <Button className='submit-btn' type='submit' variant='primary'>
                   Submit
-                </button>
+                </Button>
               </form>
+              <ToastContainer/>
             </div>
           </div>
         </div>
