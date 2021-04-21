@@ -43,13 +43,13 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
 
         </div>
       </div>
-      <div className="HomeFooter">
+      {/* <div className="HomeFooter">
         <Link to="/adminlogin">
           <button>
             Go to admin
           </button>
         </Link>
-      </div>
+      </div> */}
 
     </div>
   );
