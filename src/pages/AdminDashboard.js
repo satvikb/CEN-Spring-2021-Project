@@ -70,28 +70,33 @@ function AdminDashboard() {
  };
 
   const addEventToDatabase = () => {
-    let eventDateObj = new Date(eventDate)
-    var firestoreTimestamp = fbTimestamp.fromDate(eventDateObj);
+    try {
+      let eventDateObj = new Date(eventDate)
+      var firestoreTimestamp = fbTimestamp.fromDate(eventDateObj);
 
-    var eventData = {
-      title:eventTitle,
-      location:eventLocation,
-      time:firestoreTimestamp,
-      details:eventInfo,
+      var eventData = {
+        title:eventTitle,
+        location:eventLocation,
+        time:firestoreTimestamp,
+        details:eventInfo,
+      }
+      db.collection('events').add(eventData).then(function(ref){
+        console.log("ADDED "+ref.id)
+        var eventsCopy = events;
+        eventsCopy.push({
+          id: ref.id,
+          data:eventData
+        })
+        fetchUpdates(eventsCopy)
+        // setEvents(eventsCopy)
+        // alert("Successfully added!");
+
+        // window.location.reload();
+      });
+    }catch(e){
+      console.log("ERROR "+e)
+      alert("Error submitting event. Make sure you input both date and time. "+e)
     }
-    db.collection('events').add(eventData).then(function(ref){
-      console.log("ADDED "+ref.id)
-      var eventsCopy = events;
-      eventsCopy.push({
-        id: ref.id,
-        data:eventData
-      })
-      fetchUpdates(eventsCopy)
-      // setEvents(eventsCopy)
-      // alert("Successfully added!");
-
-      // window.location.reload();
-    });
   };
 
   var udpateCounter = 1;
@@ -116,22 +121,26 @@ function AdminDashboard() {
   };
 
   const addUpdateToDatabase = () => {
-    let updateDateObj = new Date(updateDate)
-    var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
+    try{
+      let updateDateObj = new Date(updateDate)
+      var firestoreTimestamp = fbTimestamp.fromDate(updateDateObj);
 
-    var updateData = {
-      title:updateTitle,
-      time:firestoreTimestamp,
-      details:updateInfo
+      var updateData = {
+        title:updateTitle,
+        time:firestoreTimestamp,
+        details:updateInfo
+      }
+      db.collection('updates').add(updateData).then(function(ref){
+        var updatesCopy = updates;
+        updatesCopy.push({
+          id: ref.id,
+          data:updateData
+        })
+        fetchUpdates(updatesCopy)
+      });
+    }catch(e){
+      alert("Error submitting update. Make sure you input both date and time. "+e)
     }
-    db.collection('updates').add(updateData).then(function(ref){
-      var updatesCopy = updates;
-      updatesCopy.push({
-        id: ref.id,
-        data:updateData
-      })
-      fetchUpdates(updatesCopy)
-    });
   };
 
   const deleteDocument = (collectionName, docId) => {
@@ -198,7 +207,7 @@ function AdminDashboard() {
 
           <Form.Group controlId="exampleForm.ControlTextarea1">
             <Form.Label>Event Info</Form.Label>
-            <Form.Control as="textarea" rows={3} onChange={handleEventInfoChange}/>
+            <Form.Control id="eventdate" as="textarea" rows={3} onChange={handleEventInfoChange}/>
           </Form.Group>
 
           <Button onClick={handleEventSubmit} style={{marginBottom:50}} variant="primary" type="submit">
@@ -266,7 +275,7 @@ function AdminDashboard() {
 
             <Form.Group controlId="formGridDate">
               <Form.Label>Date</Form.Label>
-              <Form.Control type="datetime-local" onChange={handleupdateDateChange}/>
+              <Form.Control id="updatedate" type="datetime-local" onChange={handleupdateDateChange}/>
             </Form.Group>
 
           </Form.Row>

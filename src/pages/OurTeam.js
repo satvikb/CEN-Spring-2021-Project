@@ -7,7 +7,7 @@ function OurTeam() {
 
     <div className="OurTeamBackgroundImage">
         <div className="BannerTitle">
-          <h1 className="BannerTitleText">OUR TEAM</h1>
+          <h1 className="BannerTitleText">Our Team</h1>
         </div>
       </div>
 
@@ -24,7 +24,7 @@ function OurTeam() {
         <EBoardCard firstname = 'William' lastname = 'Bussey' position = 'New Member Educator'></EBoardCard>
         <EBoardCard firstname = 'Gabriella' lastname = 'Ben-Zion' position = 'Director of Marketing'></EBoardCard>
         </div>
-      
+
     </div>
   );
 }
