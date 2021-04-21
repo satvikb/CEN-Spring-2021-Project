@@ -1,6 +1,9 @@
  import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SocialFollow from "./SocialFollow"
+import SocialFollow from "./SocialFollow";
+import {Link } from "react-router-dom";
+import Button from 'react-bootstrap/Button'
+
 
 
 var style1 = {
@@ -25,6 +28,12 @@ class Footer extends React.Component
     return (
         <div class="jumbotron text-center"  style={style1}>
           <SocialFollow />
+               <div className="HomeFooter">
+          <Link to="/adminlogin">
+           
+            <Button variant="link"> Go to admin</Button>
+          </Link>
+      </div>
       </div>
   
     )
