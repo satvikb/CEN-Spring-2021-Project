@@ -70,8 +70,7 @@ function NavigationBar(props) {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/ourteam">
-            <OurTeam />
+          <Route path="/ourteam" component={OurTeam}>
           </Route>
           <Route path="/involvement">
             <Involvement />
@@ -84,10 +83,10 @@ function NavigationBar(props) {
           <Route path="/adminlogin" component={AdminLogin} />
         </Switch>
       </div>
-      
-    
+
+
     </Router>
-            
+
 
   );
 }

@@ -1,4 +1,4 @@
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Nav from 'react-bootstrap/Nav'
 
 // var buttonStyle = {
@@ -9,11 +9,11 @@ import Nav from 'react-bootstrap/Nav'
 
 function NavigationButton(props) {
   return (
-    <Nav.Link href={props.url} to={props.url} >
+    <Link href={props.url} to={props.url} >
       <button className="NavigationButton" class="astext">
         <p>{props.text}</p>
       </button>
-    </Nav.Link>
+    </Link>
 
   );
 }
