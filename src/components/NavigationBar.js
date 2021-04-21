@@ -4,6 +4,8 @@ import { Router, Switch, Route } from "react-router-dom";
 // import { Router, Route, Link } from 'react-router-dom';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 //import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import Footer from './Footer';
+
 
 import Home from '../pages/Home'
 import OurTeam from '../pages/OurTeam'
@@ -17,6 +19,7 @@ import PrivateRoute from './PrivateRoute'
 
 import history from './history';
 import { auth } from '../firebase.config';
+import ContactForm from '../pages/ContactForm';
 
 
 
@@ -40,6 +43,11 @@ var buttons = [
     "text":"Events",
     "key":"events",
     "url":"/events"
+  },
+  {
+    "text":"Contact Us",
+    "key":"contactus",
+    "url":"/contactus"
   }
 ]
 
@@ -70,8 +78,7 @@ function NavigationBar(props) {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/ourteam">
-            <OurTeam />
+          <Route path="/ourteam" component={OurTeam}>
           </Route>
           <Route path="/involvement">
             <Involvement />
@@ -79,15 +86,22 @@ function NavigationBar(props) {
           <Route path="/events">
             <Events />
           </Route>
+          
+          <Route path="/contactus">
+            <ContactForm />
+          </Route>
 
           <PrivateRoute path="/admindashboard" onEnter={requireAuth} component={AdminDashboard} />
           <Route path="/adminlogin" component={AdminLogin} />
         </Switch>
+
+
       </div>
-      
-    
+      <Footer>
+      </Footer>
+
     </Router>
-            
+
 
   );
 }
