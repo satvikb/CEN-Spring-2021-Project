@@ -22,6 +22,14 @@
   font: TITILLIUM;
 }
 
+.carousel-wrapper {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  height:100%;
+  
+  
+}
 
 
 

@@ -2,6 +2,8 @@ import UpdateRow from '../components/UpdateRow'
 import { db, auth, timestamp as fbTimestamp, timestampToString} from '../firebase.config';
 import React,{useState,useEffect} from 'react';
 import {Link } from "react-router-dom";
+import CarouselComponent from "../components/CarouselComponent";
+
 
 function Home() {
   const [updates,setUpdates]=useState([])
@@ -47,6 +49,8 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
         <p className="TextDetailFinal">
 TAMID Group is an apolitical, areligious organization that develops the professional skills of undergraduate students through hands-on interaction with the Israeli economy and startups. New members will go through a semester of educational seminars, followed by the opportunity to consult for Israeli start-up companies and/or manage an investment fund, and finally an opportunity to apply for a chance to intern in Israel through the TAMID Fellowship program</p>
       </div>
+
+      <CarouselComponent></CarouselComponent>
 
     </div>
   );

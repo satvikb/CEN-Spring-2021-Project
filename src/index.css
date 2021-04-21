@@ -47,6 +47,38 @@ code {
   margin-bottom: 50px;
 }
 
+.Carou1 {
+  background-image: url("images/carou1.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  
+}
+
+.Carou2 {
+  background-image: url("images/carou2.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  
+}
+.Carou3 {
+  background-image: url("images/carou3.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  width: 100%;
+  
+}
+
 .InvolvementBackgroundImage {
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("images/t6.jpeg");
   height: 100%;
@@ -56,7 +88,6 @@ code {
   position: relative;
   width: 100%;
   margin-bottom: 50px;
-
 }
 
 .EventsBackgroundImage {
