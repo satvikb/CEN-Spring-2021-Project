@@ -207,6 +207,10 @@ code {
   margin: 0;
 }
 
+.navButton {
+  padding: 10px;
+}
+
 .EBoardCardRow {
   display: flex;
   flex-direction: row;
