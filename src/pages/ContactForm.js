@@ -56,11 +56,17 @@ const ContactForm = () => {
 
   return (
     <div className='ContactForm'>
+
+        <div className="ContactUsImage">
+          <div className="BannerTitle">
+            <h1 className="BannerTitleText">Contact Us</h1>
+          </div>
+        </div>
       <div className='container'>
         <div className='row'>
           <div className='col-12 text-center'>
             <div className='contactForm' style={{marginBottom:40}}>
-              <h3  style={{marginBottom:40}}>Contact Us</h3>
+              
               <form id='contact-form' onSubmit={handleSubmit(onSubmit)} >
                 {/* Row 1 of form */}
                 <div className='row formRow' style={{marginBottom:15}}>
