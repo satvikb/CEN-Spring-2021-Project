@@ -30,18 +30,13 @@ class Footer extends React.Component
           <SocialFollow />
                <div className="HomeFooter">
           <Link to="/adminlogin">
-           
-            <Button variant="link"> Go to admin</Button>
+
+            <Button variant="link">Admin Access</Button>
           </Link>
       </div>
       </div>
-  
+
     )
   }
 }
 export default Footer;
-
-
-
-
-

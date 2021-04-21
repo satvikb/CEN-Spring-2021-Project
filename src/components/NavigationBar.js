@@ -21,6 +21,7 @@ import history from './history';
 import { auth } from '../firebase.config';
 import ContactForm from '../pages/ContactForm';
 
+import icon from '../images/Tamid_Stacked_RGB.png';
 
 
 var buttons = [
@@ -68,7 +69,7 @@ function NavigationBar(props) {
     <Router history={history}>
       <div className="NavigationBar"  >
         <p className="WebsiteHeader"></p>
-        <img  width="127.66" height="100" src="https://images.squarespace-cdn.com/content/55368b50e4b04b38c815870d/1429643472174-WY3RYJH8JLC47P1O8YR0/Tamid_Stacked_RGB.png?content-type=image%2Fpng"></img>
+        <img width="127.66" height="100" src={icon}></img>
         <ButtonGroup >
         {buttons.map((item, index) => {
           return <NavigationButton key={item.key} text={item.text} url={item.url}></NavigationButton>
@@ -86,7 +87,7 @@ function NavigationBar(props) {
           <Route path="/events">
             <Events />
           </Route>
-          
+
           <Route path="/contactus">
             <ContactForm />
           </Route>

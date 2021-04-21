@@ -3,7 +3,7 @@ function Involvement() {
     <div className="Involvement">
       <div className="InvolvementBackgroundImage">
         <div className="BannerTitle">
-          <h1 className="BannerTitleText">INVOLVEMENT</h1>
+          <h1 className="BannerTitleText">Involvement</h1>
         </div>
       </div>
 

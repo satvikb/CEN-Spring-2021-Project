@@ -25,7 +25,7 @@ function Home() {
     <div className="Home">
       <div className="HomeBackgroundImage">
         <div className="BannerTitle">
-          <h1 className="BannerTitleText" style={{font:"20px"}}>Tamid @ UF</h1>
+          <h1 className="BannerTitleText" style={{font:"20px"}}>TAMID at UF</h1>
         </div>
       </div>
 
@@ -45,9 +45,9 @@ TAMID is a comprehensive business and technology group that uses Israel as an ec
 
         </div>
         <p className="TextDetail"></p>
-        <p className="TextTitle">Why Join Tamid?</p>
+        <p className="TextTitle">Why Join TAMID?</p>
         <p className="TextDetailFinal">
-TAMID Group is an apolitical, areligious organization that develops the professional skills of undergraduate students through hands-on interaction with the Israeli economy and startups. New members will go through a semester of educational seminars, followed by the opportunity to consult for Israeli start-up companies and/or manage an investment fund, and finally an opportunity to apply for a chance to intern in Israel through the TAMID Fellowship program</p>
+TAMID Group is an apolitical, areligious organization that develops the professional skills of undergraduate students through hands-on interaction with the Israeli economy and startups. New members will go through a semester of educational seminars, followed by the opportunity to consult for Israeli start-up companies and/or manage an investment fund, and finally an opportunity to apply for a chance to intern in Israel through the TAMID Fellowship program.</p>
       </div>
 
       <CarouselComponent></CarouselComponent>

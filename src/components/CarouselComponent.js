@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 export default function CarouselComponent() {
     return (
-        <div class="carousel-wrapper" >
+        <div className="carousel-wrapper" >
             <Carousel >
                 <div className="Carou3" style={{height:300}}>
                 </div>
@@ -13,7 +13,7 @@ export default function CarouselComponent() {
                 </div>
                 <div className="Carou2" style={{height:300}}>
                 </div>
-               
+
             </Carousel>
         </div>
 

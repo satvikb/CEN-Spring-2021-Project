@@ -9,9 +9,9 @@ import Nav from 'react-bootstrap/Nav'
 
 function NavigationButton(props) {
   return (
-    <div class="navButton">
+    <div className="navButton">
     <Link href={props.url} to={props.url} >
-      <button className="NavigationButton" class="astext" style={{padding:'20px'}}>
+      <button className="NavigationButton astext" style={{padding:'20px'}}>
         <p>{props.text}</p>
       </button>
     </Link>
