@@ -162,8 +162,10 @@ function AdminDashboard() {
 
 
   return (
+    
     <div className="AdminDashboard">
-    Admin dashboard Page
+      <h3 style={{marginBottom:50}}> Admin Dashboard</h3>
+   
 
     <Accordion defaultActiveKey="0">
   <Card>
@@ -199,7 +201,7 @@ function AdminDashboard() {
             <Form.Control as="textarea" rows={3} onChange={handleEventInfoChange}/>
           </Form.Group>
 
-          <Button onClick={handleEventSubmit} variant="primary" type="submit">
+          <Button onClick={handleEventSubmit} style={{marginBottom:50}} variant="primary" type="submit">
             Add Event
           </Button>
         </Form>
@@ -253,11 +255,11 @@ function AdminDashboard() {
       </Accordion.Toggle>
     </Card.Header>
     <Accordion.Collapse eventKey="1">
-      <Card.Body>
+      <Card.Body >
 
-        <Form onSubmit={handleUpdateSubmit}>
+        <Form onSubmit={handleUpdateSubmit} >
           <Form.Row>
-            <Form.Group controlId="formGridTitle">
+            <Form.Group controlId="formGridTitle" >
               <Form.Label>Title</Form.Label>
               <Form.Control placeholder="Update Title" onChange={handleupdateTitleChange}/>
             </Form.Group>
@@ -274,7 +276,7 @@ function AdminDashboard() {
             <Form.Control as="textarea" rows={3} onChange={handleupdateInfoChange}/>
           </Form.Group>
 
-          <Button onClick={handleUpdateSubmit} variant="primary" type="submit">
+          <Button onClick={handleUpdateSubmit} style={{marginBottom:50}} variant="primary" type="submit">
             Add Update
           </Button>
         </Form>
