@@ -1,1 +1,3 @@
 # CEN-Spring-2021-Project
+
+The website is broken down into “components”, and each component is its own UI element. This includes everything from the pages themselves to individual buttons. We made several of our own components to add on to each page, including the Event Card, Announcements, and the Admin Dashboard. Firebase Firestore is a service offered by Google that offers live storage of data. This is what is used to store the current Updates and Events on the site. When loading the website, the latest data is retrieved from Firebase and displayed. In addition, this is the data that is modified when using the Admin Dashboard.
