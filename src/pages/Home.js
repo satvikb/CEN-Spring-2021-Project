@@ -15,6 +15,9 @@ function Home() {
        ups.push(item.data())
       // setUpdates([...updates,item.data()])
      })
+     ups.sort(function(a,b) {
+       return b.time.seconds - a.time.seconds
+     });
      setUpdates(ups)
    }
    useEffect(() => {
