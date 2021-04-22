@@ -24,6 +24,11 @@ function Events() {
        })
       // setEvents([...events,item.data()])
      })
+
+     evs.sort(function(a,b) {
+       return b.data.time.seconds - a.data.time.seconds
+     });
+
      setEvents(evs)
    }
    useEffect(() => {
@@ -40,7 +45,7 @@ function Events() {
         </div>
 
         <div className="col d-flex justify-content-center" style={cardDeckStyle}>
-  
+
           <CardDeck>
           {
             events && events.map(event=>{
